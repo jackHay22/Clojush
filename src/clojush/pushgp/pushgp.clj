@@ -2,7 +2,8 @@
   (:require [clojure.java.io :as io]
             [clj-random.core :as random]
             [clojure.repl :as repl]
-            [clojush.pushgp.record :as r])
+            [clojush.pushgp.record :as r]
+            [poolgp.distribute :as poolgp])
   (:use [clojush args globals util pushstate random individual evaluate meta-errors
          simplification translate]
         [clojush.instructions boolean code common numbers random-instructions string char vectors
@@ -89,10 +90,21 @@
 (defn compute-errors
   [pop-agents rand-gens novelty-archive
    {:keys [use-single-thread error-function] :as argmap}]
-  (dorun (map #((if use-single-thread swap! send)
-                %1 evaluate-individual error-function %2 argmap)
-              pop-agents
-              rand-gens))
+  ; (dorun (map #((if use-single-thread swap! send)
+  ;               %1 evaluate-individual error-function %2 argmap)
+  ;             pop-agents
+  ;             rand-gens))
+  ;TODO: this runs eval cycle
+  (poolgp/eval-indivs (map deref pop-agents)
+    {
+      :incoming-port 8000
+      :outgoing-port 9999
+      :opp-pool-req-p 8888
+      :host "eval" ;"eval"
+      :accepted-return 0.9})
+  (println "FINISHED EVALUATING INDIVIDUALS")
+  (System/exit 0)
+
   (when-not use-single-thread (apply await pop-agents)) ;; SYNCHRONIZE
   ;; Compute values needed for meta-errors
   ;;
@@ -229,7 +241,7 @@
                                     (when-not (:use-single-thread @push-argmap (apply await pop-agents))) ;; SYNCHRONIZE
                                     (swap! delay-archive concat (map deref pop-agents))
                                     (when (zero? (mod generation del))
-                                      (println "Performing delayed selection from archive of size: " 
+                                      (println "Performing delayed selection from archive of size: "
                                                (count @delay-archive))
                                       (flush)
                                       (doseq [a pop-agents]
@@ -285,4 +297,3 @@
            (if (nil? next-novelty-archive)
              return-val
              (recur (inc generation) next-novelty-archive))))))))
-

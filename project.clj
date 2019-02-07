@@ -1,4 +1,4 @@
-(defproject clojush "3.17.1-1-SNAPSHOT"
+(defproject clojush.poolgp "3.17.1-1-SNAPSHOT"
   :description "The Push programming language and the PushGP genetic programming
                 system implemented in Clojure. See http://pushlanguage.com
 
@@ -38,7 +38,7 @@
           :stacktraces  false
           :tests        true}
   :libra {:bench-paths ["test/clojush/bench"]}
-  :repositories [["releases" {:url "https://clojars.org/repo"
+  :repositories [["releases" {:url "https://clojars.org"
                               :username :env
                               :sign-releases false
                               :password :env}]]
