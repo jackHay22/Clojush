@@ -1,6 +1,9 @@
 (defproject clojush "3.17.1-1-SNAPSHOT"
   :description "The Push programming language and the PushGP genetic programming
-                system implemented in Clojure. See http://pushlanguage.com"
+                system implemented in Clojure. See http://pushlanguage.com
+
+                FORK: this fork contains changes for use with PoolGP
+                (jackhay22/poolgp)"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
@@ -18,7 +21,8 @@
                  [prismatic/plumbing "0.5.4"]
                  [criterium "0.4.4"]
                  [net.totakke/libra "0.1.0"]
-                 [quil "2.7.1"]]
+                 [quil "2.7.1"]
+                 [poolgp.distribute "0.1.0-SNAPSHOT"]]
   :plugins [[lein-codox "0.9.1"]
             [lein-shell "0.5.0"]
             [lein-gorilla "0.4.0"]

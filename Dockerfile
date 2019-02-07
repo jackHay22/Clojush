@@ -4,4 +4,4 @@ WORKDIR /usr/src/app
 COPY project.clj /usr/src/app/
 RUN lein deps
 COPY . /usr/src/app
-CMD lein run clojush.problems.demos.simple-regression
+CMD lein run clojush.problems.software.poolgp
