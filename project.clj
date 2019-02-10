@@ -3,7 +3,7 @@
                 system implemented in Clojure. See http://pushlanguage.com
 
                 FORK: this fork contains changes for use with PoolGP
-                (jackhay22/poolgp)"
+                (https://github.com/jackHay22/poolgp)"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]

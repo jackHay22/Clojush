@@ -95,6 +95,7 @@
   ;             pop-agents
   ;             rand-gens))
   ;TODO: this runs eval cycle
+  ;(println "HERE")
   (poolgp/eval-indivs (map deref pop-agents)
     {
       :incoming-port 8000
