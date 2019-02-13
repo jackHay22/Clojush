@@ -105,11 +105,6 @@
               pop-agents
               rand-gens))
 
-  ;TODO: this runs eval cycle
-  ;(println "HERE")
-  ; (poolgp/eval-indiv (first (map deref pop-agents))
-  ;   )
-
   (when-not use-single-thread (apply await pop-agents)) ;; SYNCHRONIZE
   ;; Compute values needed for meta-errors
   ;;
