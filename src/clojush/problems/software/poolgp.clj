@@ -40,14 +40,14 @@
                           'integer_mult
                           'integer_add
                           'integer_sub
-                           ;'vector_integer_add
-                           ;'vector_integer_sub
-                          ; 'vector_integer_dot
+                          'vector_integer_add
+                          'vector_integer_sub
+                           'vector_integer_dot
                           ; 'vector_integer_scale
                           ; 'vector_integer_len
-                          ; 'vector_float_add
-                          ; 'vector_float_sub
-                          ; 'vector_float_dot
+                           'vector_float_add
+                           'vector_float_sub
+                           'vector_float_dot
                           ; 'vector_float_scale
                           ; 'vector_float_len
                           'vector_float_mk

@@ -16,7 +16,7 @@
 (defn- do-vec2-op
   [op]
   (fn [v1 v2]
-    (vec (op (first v1) (first v2))
+    (vector (op (first v1) (first v2))
          (op (second v1) (second v2)))))
 
 (defn- vec2-scale
@@ -58,15 +58,13 @@
 (defn vec-maker
   [vec-type num-type]
   (fn [state]
-    (if (and (>= (count (vec-type state)) 1)
-             (not (empty? (num-type state))))
+    (if (>= (count (num-type state)) 2)
        (let [result [(top-item num-type state) (second-item num-type state)]]
          (if (>= max-vector-length (count result))
            (push-item result
                       vec-type
                       (pop-item num-type
-                      (pop-item num-type
-                        (pop-item vec-type state))))
+                      (pop-item num-type state)))
            state))
        state)))
 
