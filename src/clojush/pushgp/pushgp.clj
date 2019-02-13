@@ -90,21 +90,25 @@
 (defn compute-errors
   [pop-agents rand-gens novelty-archive
    {:keys [use-single-thread error-function] :as argmap}]
-  ; (dorun (map #((if use-single-thread swap! send)
-  ;               %1 evaluate-individual error-function %2 argmap)
-  ;             pop-agents
-  ;             rand-gens))
+
+   (poolgp/start-dist-services {
+     :incoming-port 8000
+     :outgoing-port 9999
+     :opp-pool-req-p 8888
+     :host "150.209.34.100" ;"eval"
+     :accepted-return 0.9})
+
+  (poolgp/register-opponents (map deref pop-agents))
+
+  (dorun (map #((if use-single-thread swap! send)
+                %1 evaluate-individual poolgp/eval-indiv %2 argmap)
+              pop-agents
+              rand-gens))
+
   ;TODO: this runs eval cycle
   ;(println "HERE")
-  (poolgp/eval-indivs (map deref pop-agents)
-    {
-      :incoming-port 8000
-      :outgoing-port 9999
-      :opp-pool-req-p 8888
-      :host "eval" ;"eval"
-      :accepted-return 0.9})
-  (println "FINISHED EVALUATING INDIVIDUALS")
-  (System/exit 0)
+  ; (poolgp/eval-indiv (first (map deref pop-agents))
+  ;   )
 
   (when-not use-single-thread (apply await pop-agents)) ;; SYNCHRONIZE
   ;; Compute values needed for meta-errors
