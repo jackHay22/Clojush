@@ -1,0 +1,5 @@
+#!/bin/bash
+
+docker build --tag poolgp_clojush:latest .
+docker tag poolgp_clojush:latest jackhay22/poolgp_clojush:latest
+docker push jackhay22/poolgp_clojush:latest
