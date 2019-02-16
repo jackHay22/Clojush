@@ -95,7 +95,7 @@
      :incoming-port 8000
      :outgoing-port 9999
      :opp-pool-req-p 8888
-     :host "eval" ;"eval"
+     :host "eval" ;"eval" 
      :accepted-return 0.9})
 
   (poolgp/register-opponents (map deref pop-agents))

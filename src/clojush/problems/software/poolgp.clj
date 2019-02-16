@@ -10,10 +10,10 @@
         [clojure.math.numeric-tower]))
 
 (def argmap
-  {:error-function (identity i)
+  {:error-function identity
    :atom-generators (list (fn [] (lrand-int 50))
                           'cue
-                          'self-balls'
+                          'self-balls
                           'opp-balls
                           'pockets
                           'float_div
@@ -33,6 +33,6 @@
                           'float_gte)
    :epigenetic-markers []
    :parent-selection :tournament
-   :population-size 10
+   :population-size 5
    :genetic-operator-probabilities {:alternation 0.5
                                     :uniform-mutation 0.5}})

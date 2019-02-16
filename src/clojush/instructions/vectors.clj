@@ -22,7 +22,7 @@
 (defn- vec2-scale
   [v1 s]
   [(* (first v1) s)
-   (* (second v1 s))])
+   (* (second v1) s)])
 
 (def vec-add (do-vec2-op +))
 (def vec-sub (do-vec2-op -))
