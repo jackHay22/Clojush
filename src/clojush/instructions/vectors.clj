@@ -42,15 +42,15 @@
       state)))
 
 (defn vec-scaler
-  [vec-type]
+  [vec-type scale-type]
   (fn [state]
     (if (and (>= (count (vec-type state)) 1)
-             (not (empty? (:integer state))))
-      (let [result (vec2-scale (top-item vec-type state) (first (:integer state)))]
+             (not (empty? (scale-type state))))
+      (let [result (vec2-scale (top-item vec-type state) (first (scale-type state)))]
         (if (>= max-vector-length (count result))
           (push-item result
                      vec-type
-                     (pop-item :integer
+                     (pop-item scale-type
                        (pop-item vec-type state)))
           state))
       state)))
@@ -101,13 +101,13 @@
 (define-registered vector_integer_add (with-meta (vec-op :vector_integer vec-add) {:stack-types [:vector_integer]}))
 (define-registered vector_integer_sub (with-meta (vec-op :vector_integer vec-sub) {:stack-types [:vector_integer]}))
 (define-registered vector_integer_dot (with-meta (vec-dotter :vector_integer) {:stack-types [:vector_integer]}))
-(define-registered vector_integer_scale (with-meta (vec-scaler :vector_integer) {:stack-types [:vector_integer :integer]}))
+(define-registered vector_integer_scale (with-meta (vec-scaler :vector_integer :integer) {:stack-types [:vector_integer :integer]}))
 (define-registered vector_integer_len (with-meta (vec-lengther :vector_integer) {:stack-types [:vector_integer]}))
 
 (define-registered vector_float_add (with-meta (vec-op :vector_float vec-add) {:stack-types [:vector_float]}))
 (define-registered vector_float_sub (with-meta (vec-op :vector_float vec-sub) {:stack-types [:vector_float]}))
 (define-registered vector_float_dot (with-meta (vec-dotter :vector_float) {:stack-types [:vector_float]}))
-(define-registered vector_float_scale (with-meta (vec-scaler :vector_float) {:stack-types [:vector_float :float]}))
+(define-registered vector_float_scale (with-meta (vec-scaler :vector_float :float) {:stack-types [:vector_float :float]}))
 (define-registered vector_float_len (with-meta (vec-lengther :vector_float) {:stack-types [:vector_float]}))
 
 (define-registered vector_float_mk (with-meta (vec-maker :vector_float :float) {:stack-types [:float]}))
