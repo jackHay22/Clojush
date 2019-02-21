@@ -16,10 +16,18 @@
                           'self-balls
                           'opp-balls
                           'pockets
+                          'ball-diam
+                          'self-count
+                          'opp-count
+
                           'float_div
                           'float_mult
                           'float_add
                           'float_sub
+                          'integer_div
+                          'integer_mult
+                          'integer_add
+                          'integer_sub
                           'vector_float_add
                           'vector_float_sub
                           'vector_float_dot
