@@ -41,11 +41,12 @@
                           'float_gte
                           (registered-for-stacks [:integer :float :boolean :exec]))
    :parent-selection :lexicase
-   :population-size 50
+   :population-size 5 ;50
    :max-points 3200
    :max-generations 100
    :max-genome-size-in-initial-program 400
    :print-csv-logs true ;path specified as arg
+   :csv-log-filename "/server_logs/gen_log.csv"
    :print-timings true
    :report-simplifications 0
    :final-report-simplifications 0
