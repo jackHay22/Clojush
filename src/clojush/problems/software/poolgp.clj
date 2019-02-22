@@ -40,7 +40,6 @@
                           'float_gt
                           'float_gte
                           (registered-for-stacks [:integer :float :boolean :exec]))
-   :epigenetic-markers []
    :parent-selection :lexicase
    :population-size 50
    :max-points 3200

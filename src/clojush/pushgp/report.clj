@@ -124,37 +124,33 @@
                            :plush-genome-size (count (:genome individual))
                            :plush-genome (if (empty? (:genome individual))
                                            "()"
-                                           (not-lazy (:genome individual)))
-
-                          :plush-genome-closes "()"
-                          :plushy-genome-closes "()"
-                          :push-paren-locations "()"       
-                           ; :plush-genome-closes (if (empty? (:genome individual))
-                           ;                        "()"
-                           ;                        (apply str
-                           ;                               (not-lazy
-                           ;                                (map (fn [closes]
-                           ;                                       (if (<= closes 9)
-                           ;                                         closes
-                           ;                                         (str "<" closes ">")))
-                           ;                                     (map :close (:genome individual))))))
-                           ; :plushy-genome-closes (if (empty? (:genome individual))
-                           ;                         "()"
-                           ;                         (apply str
-                           ;                                (not-lazy (map (fn [instr]
-                           ;                                                 (if (= instr :close)
-                           ;                                                   1
-                           ;                                                   0))
-                           ;                                               (:genome individual)))))
-                           ; :push-paren-locations (if (empty? (:genome individual))
-                           ;                         ""
-                           ;                         (apply str
-                           ;                                (not-lazy
-                           ;                                 (map #(case %
-                           ;                                         :open "("
-                           ;                                         :close ")"
-                           ;                                         "-")
-                           ;                                      (list-to-open-close-sequence (:program individual))))))
+                                           (not-lazy (:genome individual)))     
+                           :plush-genome-closes (if (empty? (:genome individual))
+                                                  "()"
+                                                  (apply str
+                                                         (not-lazy
+                                                          (map (fn [closes]
+                                                                 (if (<= closes 9)
+                                                                   closes
+                                                                   (str "<" closes ">")))
+                                                               (map :close (:genome individual))))))
+                           :plushy-genome-closes (if (empty? (:genome individual))
+                                                   "()"
+                                                   (apply str
+                                                          (not-lazy (map (fn [instr]
+                                                                           (if (= instr :close)
+                                                                             1
+                                                                             0))
+                                                                         (:genome individual)))))
+                           :push-paren-locations (if (empty? (:genome individual))
+                                                   ""
+                                                   (apply str
+                                                          (not-lazy
+                                                           (map #(case %
+                                                                   :open "("
+                                                                   :close ")"
+                                                                   "-")
+                                                                (list-to-open-close-sequence (:program individual))))))
                            ) ; This is a map of an individual
                          columns)
                     (when (some #{:test-case-errors} csv-columns)
