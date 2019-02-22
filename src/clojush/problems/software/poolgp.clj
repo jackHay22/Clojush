@@ -38,9 +38,18 @@
                           'float_lt
                           'float_lte
                           'float_gt
-                          'float_gte)
+                          'float_gte
+                          (registered-for-stacks [:integer :float :boolean :exec]))
    :epigenetic-markers []
-   :parent-selection :tournament
-   :population-size 5
-   :genetic-operator-probabilities {:alternation 0.5
-                                    :uniform-mutation 0.5}})
+   :parent-selection :lexicase
+   :population-size 50
+   :max-points 3200
+   :max-generations 100
+   :max-genome-size-in-initial-program 400
+   :print-csv-logs true ;path specified as arg
+   :print-timings true
+   :report-simplifications 0
+   :final-report-simplifications 0
+   ;UMAD
+   :genetic-operator-probabilities {:uniform-addition-and-deletion 1.0}
+   :uniform-addition-and-deletion-rate 0.1})
