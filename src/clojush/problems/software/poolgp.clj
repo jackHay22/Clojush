@@ -41,7 +41,7 @@
                           'float_gte
                           (registered-for-stacks [:integer :float :boolean :exec]))
    :parent-selection :lexicase
-   :population-size 5 ;50
+   :population-size 50
    :max-points 3200
    :max-generations 100
    :max-genome-size-in-initial-program 400

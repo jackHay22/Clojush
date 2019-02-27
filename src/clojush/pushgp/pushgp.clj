@@ -91,6 +91,10 @@
   [pop-agents rand-gens novelty-archive
    {:keys [use-single-thread error-function] :as argmap}]
 
+   ;temporary: wait 10 seconds for workers to start
+   (println "WAITING...")
+   (Thread/sleep 10000)
+
    (poolgp/start-dist-services {
      :incoming-port 8000
      :outgoing-port 9999
