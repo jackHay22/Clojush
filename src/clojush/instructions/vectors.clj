@@ -98,11 +98,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; poolgp instructions
 
-(define-registered vector_integer_add (with-meta (vec-op :vector_integer vec-add) {:stack-types [:vector_integer]}))
-(define-registered vector_integer_sub (with-meta (vec-op :vector_integer vec-sub) {:stack-types [:vector_integer]}))
-(define-registered vector_integer_dot (with-meta (vec-dotter :vector_integer) {:stack-types [:vector_integer]}))
-(define-registered vector_integer_scale (with-meta (vec-scaler :vector_integer :integer) {:stack-types [:vector_integer :integer]}))
-(define-registered vector_integer_len (with-meta (vec-lengther :vector_integer) {:stack-types [:vector_integer]}))
+; (define-registered vector_integer_add (with-meta (vec-op :vector_integer vec-add) {:stack-types [:vector_integer]}))
+; (define-registered vector_integer_sub (with-meta (vec-op :vector_integer vec-sub) {:stack-types [:vector_integer]}))
+; (define-registered vector_integer_dot (with-meta (vec-dotter :vector_integer) {:stack-types [:vector_integer]}))
+; (define-registered vector_integer_scale (with-meta (vec-scaler :vector_integer :integer) {:stack-types [:vector_integer :integer]}))
+; (define-registered vector_integer_len (with-meta (vec-lengther :vector_integer) {:stack-types [:vector_integer]}))
 
 (define-registered vector_float_add (with-meta (vec-op :vector_float vec-add) {:stack-types [:vector_float]}))
 (define-registered vector_float_sub (with-meta (vec-op :vector_float vec-sub) {:stack-types [:vector_float]}))
@@ -111,7 +111,7 @@
 (define-registered vector_float_len (with-meta (vec-lengther :vector_float) {:stack-types [:vector_float]}))
 
 (define-registered vector_float_mk (with-meta (vec-maker :vector_float :float) {:stack-types [:float]}))
-(define-registered vector_integer_mk (with-meta (vec-maker :vector_integer :integer) {:stack-types [:integer]}))
+;(define-registered vector_integer_mk (with-meta (vec-maker :vector_integer :integer) {:stack-types [:integer]}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; stack instructions for vectors
