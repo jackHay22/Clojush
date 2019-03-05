@@ -92,7 +92,6 @@
    {:keys [use-single-thread error-function] :as argmap}]
 
    ;temporary: wait 10 seconds for workers to start
-   (println "WAITING...")
    (Thread/sleep 10000)
 
    (poolgp/start-dist-services {
@@ -104,9 +103,17 @@
   (poolgp/register-opponents (map deref pop-agents))
 
   (dorun (map #((if use-single-thread swap! send)
-                %1 evaluate-individual poolgp/eval-indiv %2 argmap)
-              pop-agents
-              rand-gens))
+                %1 poolgp/eval-indiv)
+              pop-agents))
+
+  (when-not use-single-thread (apply await pop-agents)) ;; SYNCHRONIZE
+
+  (let [opps (map deref pop-agents)]
+    (dorun (map #((if use-single-thread swap! send)
+                  %1 evaluate-individual (fn [i] (poolgp/merge-fitness i opps)) %2
+                                                  (assoc argmap :reuse-errors false))
+                pop-agents
+                rand-gens)))
 
   (when-not use-single-thread (apply await pop-agents)) ;; SYNCHRONIZE
   ;; Compute values needed for meta-errors

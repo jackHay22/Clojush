@@ -39,9 +39,9 @@
                           'float_gt
                           'float_gte)
                            (registered-for-stacks
-                             [:float :common :vector_float]))
+                             [:float :common]))
    :parent-selection :lexicase
-   :population-size 80
+   :population-size 48
    :max-points 300
    :max-generations 100
    :max-genome-size-in-initial-program 200
