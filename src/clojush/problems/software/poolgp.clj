@@ -39,7 +39,7 @@
                           'float_gt
                           'float_gte)
                            (registered-for-stacks
-                             [:float :common]))
+                             [:float :exec :integer :boolean]))
    :parent-selection :lexicase
    :population-size 48
    :max-points 300
