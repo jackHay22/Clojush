@@ -68,6 +68,16 @@
            state))
        state)))
 
+(defn vec-decomper
+ [vec-type num-type]
+ (fn [state]
+   (if (not (empty? (vec-type state)))
+      (let [result (top-item vec-type state)]
+          (push-item result
+                     num-type
+                     (pop-item vec-type state)))
+      state)))
+
 (defn- ** [x] (* x x))
 
 (defn vec-lengther
@@ -111,6 +121,7 @@
 (define-registered vector_float_len (with-meta (vec-lengther :vector_float) {:stack-types [:vector_float]}))
 
 (define-registered vector_float_mk (with-meta (vec-maker :vector_float :float) {:stack-types [:float]}))
+(define-registered vector_float_decomp (with-meta (vec-decomper :vector_float :float) {:stack-types [:vector_float]}))
 ;(define-registered vector_integer_mk (with-meta (vec-maker :vector_integer :integer) {:stack-types [:integer]}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

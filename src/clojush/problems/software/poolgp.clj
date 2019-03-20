@@ -21,25 +21,32 @@
                           'self-count
                           'opp-count
 
-                          'float_div
-                          'float_mult
-                          'float_add
-                          'float_sub
-
                           'vector_float_add
                           'vector_float_sub
                           'vector_float_dot
                           'vector_float_scale
                           'vector_float_len
                           'vector_float_mk
+                          'vector_float_decomp
 
-                          'float_mod
-                          'float_lt
-                          'float_lte
-                          'float_gt
-                          'float_gte)
+                          'vector_float_dup
+                          'vector_float_dup_times
+                          'vector_float_swap
+                          'vector_float_rot
+                          'vector_float_eq
+                          'vector_float_stackdepth
+                          'vector_float_yank
+                          'vector_float_yankdup
+                          'vector_float_shove
+                          'vector_float_empty)
                            (registered-for-stacks
-                             [:float :exec :integer :boolean]))
+                             [:float :exec :integer :boolean])
+                           ;common instrs
+                           (repeat 10 'vector_float_sub)
+                           (repeat 7 'self-balls)
+                           (repeat 7 'cue)
+                           (repeat 5 'pockets)
+                           (repeat 5 'ball-diam))
    :parent-selection :lexicase
    :population-size 48
    :max-points 300
