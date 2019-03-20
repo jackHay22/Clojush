@@ -39,6 +39,7 @@
                           'vector_float_yankdup
                           'vector_float_shove
                           'vector_float_empty)
+
                            (registered-for-stacks
                              [:float :exec :integer :boolean])
                            ;common instrs

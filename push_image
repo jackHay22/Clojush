@@ -1,5 +1,13 @@
 #!/bin/bash
 
+open -a Docker || exit 1
+i=0
+while ! docker system info &>/dev/null; do
+  (( i++ == 0 )) && printf "Waiting for Docker daemon" %s || printf "."
+  sleep 1
+done
+(( i )) && printf '\n'
+
 docker build --tag poolgp_clojush:latest .
 docker tag poolgp_clojush:latest jackhay22/poolgp_clojush:latest
 docker push jackhay22/poolgp_clojush:latest
