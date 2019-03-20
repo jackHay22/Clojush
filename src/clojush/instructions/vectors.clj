@@ -72,10 +72,9 @@
  [vec-type num-type]
  (fn [state]
    (if (not (empty? (vec-type state)))
-      (let [result (top-item vec-type state)]
-          (push-item result
-                     num-type
-                     (pop-item vec-type state)))
+      (reduce #(push-item %2 num-type %1)
+          (pop-item vec-type state)
+          (top-item vec-type state))
       state)))
 
 (defn- ** [x] (* x x))
