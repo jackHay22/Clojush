@@ -13,6 +13,7 @@
   {:error-function identity
    :atom-generators (concat
                       (list (fn [] (lrand-int 50))
+                          ;poolgp specific inputs
                           'cue
                           'self-balls
                           'opp-balls
@@ -21,6 +22,7 @@
                           'self-count
                           'opp-count
 
+                          ;poolgp specific vectors
                           'vector_float_add
                           'vector_float_sub
                           'vector_float_dot
@@ -29,6 +31,7 @@
                           'vector_float_mk
                           'vector_float_decomp
 
+                          ;clojush vectors
                           'vector_float_dup
                           'vector_float_dup_times
                           'vector_float_swap
@@ -40,14 +43,19 @@
                           'vector_float_shove
                           'vector_float_empty)
 
+                           ;additional
                            (registered-for-stacks
                              [:float :exec :integer :boolean])
                            ;common instrs
                            (repeat 10 'vector_float_sub)
+                           (repeat 7 'vector_float_scale)
                            (repeat 7 'self-balls)
                            (repeat 7 'cue)
                            (repeat 5 'pockets)
-                           (repeat 5 'ball-diam))
+                           (repeat 5 'opp-balls)
+                           (repeat 5 'ball-diam)
+                           (repeat 3 'self-count)
+                           (repeat 3 'opp-count))
    :parent-selection :lexicase
    :population-size 48
    :max-points 300
