@@ -34,7 +34,7 @@
     (if (>= (count (vec-type state)) 2)
       (let [result (op (top-item vec-type state) (second-item vec-type state))]
         (if (>= max-vector-length (count result))
-          (push-item (map keep-number-reasonable result)
+          (push-item (into (vector) (map keep-number-reasonable result))
                      vec-type
                      (pop-item vec-type
                         (pop-item vec-type state)))
@@ -48,7 +48,7 @@
              (not (empty? (scale-type state))))
       (let [result (vec2-scale (top-item vec-type state) (first (scale-type state)))]
         (if (>= max-vector-length (count result))
-          (push-item (map keep-number-reasonable result)
+          (push-item (into (vector) (map keep-number-reasonable result))
                      vec-type
                      (pop-item scale-type
                        (pop-item vec-type state)))
