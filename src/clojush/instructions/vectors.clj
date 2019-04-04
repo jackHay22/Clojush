@@ -17,7 +17,7 @@
   [op]
   (fn [v1 v2]
     (vector (op (first v1) (first v2))
-         (op (second v1) (second v2)))))
+            (op (second v1) (second v2)))))
 
 (defn- vec2-scale
   [v1 s]
@@ -34,7 +34,7 @@
     (if (>= (count (vec-type state)) 2)
       (let [result (op (top-item vec-type state) (second-item vec-type state))]
         (if (>= max-vector-length (count result))
-          (push-item result
+          (push-item (map keep-number-reasonable result)
                      vec-type
                      (pop-item vec-type
                         (pop-item vec-type state)))
@@ -48,7 +48,7 @@
              (not (empty? (scale-type state))))
       (let [result (vec2-scale (top-item vec-type state) (first (scale-type state)))]
         (if (>= max-vector-length (count result))
-          (push-item result
+          (push-item (map keep-number-reasonable result)
                      vec-type
                      (pop-item scale-type
                        (pop-item vec-type state)))
@@ -85,7 +85,7 @@
     (if (>= (count (vec-type state)) 1)
        (let [vec (top-item vec-type state)
              result (Math/sqrt (+ (** (first vec)) (** (second vec))))]
-           (push-item (float result)
+           (push-item (keep-number-reasonable (float result))
                       :float
                       (pop-item vec-type state)))
        state)))
@@ -98,7 +98,7 @@
              vec2 (second-item vec-type state)
              result (+ (* (first vec1) (first vec2))
                        (* (second vec1) (second vec2)))]
-           (push-item (float result)
+           (push-item (keep-number-reasonable (float result))
                       :float
                       (pop-item vec-type
                       (pop-item vec-type state))))
