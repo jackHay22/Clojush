@@ -1,5 +1,5 @@
 (ns clojush.instructions.vectors
-  (:use [clojush pushstate globals]
+  (:use [clojush pushstate globals util]
         clojush.instructions.common))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
