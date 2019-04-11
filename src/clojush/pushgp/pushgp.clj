@@ -16,6 +16,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; pushgp
 
+;POOLGP SPECIFIC OPPONENT POOL
+(def POOLGP-PREV-GEN (atom (list)))
+
 (defn agent-error-handler
   "Given to individual agents for handling errors."
   [agnt except]
@@ -92,15 +95,22 @@
    {:keys [use-single-thread error-function] :as argmap}]
 
    ;temporary: wait 10 seconds for workers to start
-   (Thread/sleep 10000)
+  (Thread/sleep 10000)
 
-   (poolgp/start-dist-services {
+  (poolgp/start-dist-services {
      :incoming-port 8000
      :outgoing-port 9999
      :opp-pool-req-p 8888
      :host "eval"})
 
-  (poolgp/register-opponents (map deref pop-agents))
+  ;take first 10 individuals from starting gen if no
+  ;previous gen computed
+  (let [prev-gen @POOLGP-PREV-GEN]
+    (poolgp/register-opponents
+      (take 10
+        (if (not (empty? prev-gen))
+            (sort-by :total-error prev-gen)
+            (map deref pop-agents)))))
 
   (dorun (map #((if use-single-thread swap! send)
                 %1 poolgp/eval-indiv)
@@ -116,6 +126,10 @@
                 rand-gens)))
 
   (when-not use-single-thread (apply await pop-agents)) ;; SYNCHRONIZE
+
+  ;@POOLGP (store generation)
+  (reset! POOLGP-PREV-GEN (doall (map deref pop-agents)))
+  
   ;; Compute values needed for meta-errors
   ;;
   ;; calculate novelty when novelty-search or novelty meta errors are used
@@ -228,6 +242,7 @@
   (when (= (:parent-selection @push-argmap) :epsilon-lexicase)
     (calculate-epsilons-for-epsilon-lexicase pop-agents @push-argmap))
   (timer @push-argmap :other)
+
   ;; report and check for success
   (let [[outcome best] (report-and-check-for-success (vec (doall (map deref pop-agents)))
                                                      generation @push-argmap)]

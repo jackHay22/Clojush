@@ -57,7 +57,7 @@
                            (repeat 3 'self-count)
                            (repeat 3 'opp-count))
    :parent-selection :lexicase
-   :population-size 48
+   :population-size 2 ;48
    :max-points 300
    :max-generations 100
    :max-genome-size-in-initial-program 200
