@@ -110,7 +110,7 @@
       (take 10
         (if (not (empty? prev-gen))
             (sort-by :total-error prev-gen)
-            (map deref pop-agents)))))
+            (doall (map deref pop-agents))))))
 
   (dorun (map #((if use-single-thread swap! send)
                 %1 poolgp/eval-indiv)
@@ -129,7 +129,7 @@
 
   ;@POOLGP (store generation)
   (reset! POOLGP-PREV-GEN (doall (map deref pop-agents)))
-  
+
   ;; Compute values needed for meta-errors
   ;;
   ;; calculate novelty when novelty-search or novelty meta errors are used

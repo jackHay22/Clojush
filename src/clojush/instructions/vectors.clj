@@ -16,13 +16,15 @@
 (defn- do-vec2-op
   [op]
   (fn [v1 v2]
-    (vector (op (first v1) (first v2))
-            (op (second v1) (second v2)))))
+    (vector (keep-number-reasonable
+              (op (first v1) (first v2)))
+            (keep-number-reasonable
+              (op (second v1) (second v2))))))
 
 (defn- vec2-scale
   [v1 s]
-  [(* (first v1) s)
-   (* (second v1) s)])
+  [(keep-number-reasonable (* (first v1) s))
+   (keep-number-reasonable (* (second v1) s))])
 
 (def vec-add (do-vec2-op +))
 (def vec-sub (do-vec2-op -))
@@ -59,7 +61,8 @@
   [vec-type num-type]
   (fn [state]
     (if (>= (count (num-type state)) 2)
-       (let [result [(top-item num-type state) (second-item num-type state)]]
+       (let [result [(keep-number-reasonable (top-item num-type state))
+                     (keep-number-reasonable (second-item num-type state))]]
          (if (>= max-vector-length (count result))
            (push-item result
                       vec-type
@@ -72,7 +75,7 @@
  [vec-type num-type]
  (fn [state]
    (if (not (empty? (vec-type state)))
-      (reduce #(push-item %2 num-type %1)
+      (reduce #(push-item (keep-number-reasonable %2) num-type %1)
           (pop-item vec-type state)
           (top-item vec-type state))
       state)))

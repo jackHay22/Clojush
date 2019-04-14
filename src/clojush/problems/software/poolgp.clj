@@ -57,9 +57,9 @@
                            (repeat 3 'self-count)
                            (repeat 3 'opp-count))
    :parent-selection :lexicase
-   :population-size 2 ;48
+   :population-size 64
    :max-points 300
-   :max-generations 100
+   :max-generations 400
    :max-genome-size-in-initial-program 200
    :print-csv-logs true
    :csv-log-filename "/server_logs/gen_log.csv"
