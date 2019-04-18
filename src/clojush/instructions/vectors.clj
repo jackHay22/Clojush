@@ -23,8 +23,10 @@
 
 (defn- vec2-scale
   [v1 s]
-  [(keep-number-reasonable (* (first v1) s))
-   (keep-number-reasonable (* (second v1) s))])
+  (if (vector? v1)
+    [(keep-number-reasonable (* (first v1) s))
+     (keep-number-reasonable (* (second v1) s))]
+    v1))
 
 (def vec-add (do-vec2-op +))
 (def vec-sub (do-vec2-op -))
@@ -82,15 +84,32 @@
 
 (defn- ** [x] (* x x))
 
+(defn- vec-len [v]
+  (if (and (vector? v) (>= (count v) 2))
+    (keep-number-reasonable
+      (Math/sqrt (+ (** (first v))
+                    (** (second v)))))
+    v))
+
+(defn- vec-dot
+  [v1 v2]
+  (if (and (vector? v1)
+           (vector? v2)
+           (>= (count v1) 2)
+           (>= (count v2) 2))
+      (keep-number-reasonable
+        (+ (* (first v1) (first v2))
+           (* (second v1) (second v2))))
+      v1))
+
 (defn vec-lengther
   [vec-type]
   (fn [state]
     (if (>= (count (vec-type state)) 1)
-       (let [vec (top-item vec-type state)
-             result (Math/sqrt (+ (** (first vec)) (** (second vec))))]
-           (push-item (keep-number-reasonable (float result))
-                      :float
-                      (pop-item vec-type state)))
+       (push-item (keep-number-reasonable
+                    (float (vec-len (top-item vec-type state))))
+                  :float
+                  (pop-item vec-type state))
        state)))
 
 (defn vec-dotter
@@ -98,11 +117,25 @@
   (fn [state]
     (if (>= (count (vec-type state)) 2)
        (let [vec1 (top-item vec-type state)
-             vec2 (second-item vec-type state)
-             result (+ (* (first vec1) (first vec2))
-                       (* (second vec1) (second vec2)))]
-           (push-item (keep-number-reasonable (float result))
+             vec2 (second-item vec-type state)]
+           (push-item (keep-number-reasonable
+                        (float (vec-dot vec1 vec2)))
                       :float
+                      (pop-item vec-type
+                      (pop-item vec-type state))))
+       state)))
+
+(defn vec-projjer
+  [vec-type]
+  (fn [state]
+    (if (>= (count (vec-type state)) 2)
+       (let [vec1 (top-item vec-type state)
+             vec2 (second-item vec-type state)
+             len-sqrd (** (vec-len vec1))]
+           (push-item (vec2-scale vec1
+                        (/ (vec-dot vec1 vec2)
+                           (if (= 0 len-sqrd) 1 len-sqrd)))
+                      vec-type
                       (pop-item vec-type
                       (pop-item vec-type state))))
        state)))
@@ -121,6 +154,7 @@
 (define-registered vector_float_dot (with-meta (vec-dotter :vector_float) {:stack-types [:vector_float]}))
 (define-registered vector_float_scale (with-meta (vec-scaler :vector_float :float) {:stack-types [:vector_float :float]}))
 (define-registered vector_float_len (with-meta (vec-lengther :vector_float) {:stack-types [:vector_float]}))
+(define-registered vector_float_proj (with-meta (vec-projjer :vector_float) {:stack-types [:vector_float]}))
 
 (define-registered vector_float_mk (with-meta (vec-maker :vector_float :float) {:stack-types [:float]}))
 (define-registered vector_float_decomp (with-meta (vec-decomper :vector_float :float) {:stack-types [:vector_float]}))

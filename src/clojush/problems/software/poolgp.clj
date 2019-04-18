@@ -28,6 +28,7 @@
                           'vector_float_dot
                           'vector_float_scale
                           'vector_float_len
+                          'vector_float_proj
                           'vector_float_mk
                           'vector_float_decomp
 
@@ -51,9 +52,14 @@
                            (repeat 7 'vector_float_scale)
                            (repeat 7 'self-balls)
                            (repeat 7 'cue)
-                           (repeat 5 'pockets)
+                           (repeat 7 'pockets)
                            (repeat 5 'opp-balls)
                            (repeat 5 'ball-diam)
+                           (repeat 5 'vector_float_proj)
+                           (repeat 5 'vector_float_scale)
+                           (repeat 5 'vector_float_dot)
+                           (repeat 5 'vector_float_add)
+                           (repeat 5 'vector_float_len)
                            (repeat 3 'self-count)
                            (repeat 3 'opp-count))
    :parent-selection :lexicase
