@@ -128,7 +128,9 @@
 (defn- safe-div
   [a b]
   (if (= b 0)
-      a (/ a b)))
+      a (try
+          (/ a b)
+          (catch Exception e a))))
 
 (defn vec-projjer
   [vec-type]
