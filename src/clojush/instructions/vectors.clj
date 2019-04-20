@@ -125,6 +125,11 @@
                       (pop-item vec-type state))))
        state)))
 
+(defn- safe-div
+  [a b]
+  (if (= b 0)
+      a (/ a b)))
+
 (defn vec-projjer
   [vec-type]
   (fn [state]
@@ -133,7 +138,7 @@
              vec2 (second-item vec-type state)
              len-sqrd (** (vec-len vec1))]
            (push-item (vec2-scale vec1
-                        (/ (vec-dot vec1 vec2)
+                        (safe-div (vec-dot vec1 vec2)
                            (if (= 0 len-sqrd) 1 len-sqrd)))
                       vec-type
                       (pop-item vec-type
