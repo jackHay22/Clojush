@@ -22,6 +22,11 @@
                           'self-count
                           'opp-count
 
+                          ;poolgp domain specific
+                          'will_collide?
+                          'pt_glancing
+                          'ball_diam_normal
+
                           ;poolgp specific vectors
                           'vector_float_add
                           'vector_float_sub
@@ -49,10 +54,13 @@
                              [:float :exec :integer :boolean])
                            ;common instrs
                            (repeat 10 'vector_float_sub)
+                           (repeat 7 'pt_glancing)
                            (repeat 7 'vector_float_scale)
                            (repeat 7 'self-balls)
                            (repeat 7 'cue)
                            (repeat 7 'pockets)
+                           (repeat 5 'will_collide?)
+                           (repeat 5 'ball_diam_normal)
                            (repeat 5 'opp-balls)
                            (repeat 5 'ball-diam)
                            (repeat 5 'vector_float_proj)
