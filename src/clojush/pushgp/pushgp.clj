@@ -107,7 +107,7 @@
   ;previous gen computed
   (let [prev-gen @POOLGP-PREV-GEN]
     (poolgp/register-opponents
-      (take 10
+      (take 20
         (if (not (empty? prev-gen))
             (sort-by :total-error prev-gen)
             (doall (map deref pop-agents))))))
