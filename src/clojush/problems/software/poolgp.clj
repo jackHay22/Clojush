@@ -46,6 +46,7 @@
                           'vector_float_stackdepth
                           'vector_float_yank
                           'vector_float_yankdup
+                          'vector_float_pop
                           'vector_float_shove
                           'vector_float_empty)
 
@@ -82,4 +83,9 @@
    :final-report-simplifications 0
    ;UMAD
    :genetic-operator-probabilities {:uniform-addition-and-deletion 1.0}
+   ; :genetic-operator-probabilities {:alternation  0.2
+   ;                                 :uniform-mutation 0.2
+   ;                                 :uniform-close-mutation 0.1
+   ;                                 [:alternation :uniform-mutation] 0.5
+   ;                                 }
    :uniform-addition-and-deletion-rate 0.1})
